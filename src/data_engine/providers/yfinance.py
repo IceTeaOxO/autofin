@@ -19,24 +19,37 @@ class YFinanceProvider(BaseProvider):
         if len(tickers) == 1:
             ticker = tickers[0]
             temp_df = df.copy()
+            # If yf returns MultiIndex for single ticker
+            if isinstance(temp_df.columns, pd.MultiIndex):
+                temp_df.columns = temp_df.columns.get_level_values(-1)
             temp_df['ticker'] = ticker
             temp_df = temp_df.reset_index()
             all_data.append(temp_df)
         else:
             for ticker in tickers:
-                if ticker in df.columns.levels[0]:
-                    temp_df = df[ticker].copy()
-                    temp_df['ticker'] = ticker
-                    temp_df = temp_df.reset_index()
-                    all_data.append(temp_df)
+                # Check if ticker exists in columns
+                if isinstance(df.columns, pd.MultiIndex):
+                    if ticker in df.columns.levels[0]:
+                        temp_df = df[ticker].copy()
+                        temp_df['ticker'] = ticker
+                        temp_df = temp_df.reset_index()
+                        all_data.append(temp_df)
+                else:
+                    # Single level columns but multiple tickers (rare with group_by='ticker')
+                    if ticker in df.columns:
+                        temp_df = df[[ticker]].copy()
+                        temp_df['ticker'] = ticker
+                        temp_df = temp_df.reset_index()
+                        all_data.append(temp_df)
         
         if not all_data:
             return pd.DataFrame()
             
         final_df = pd.concat(all_data)
         
-        # Standardize columns
-        final_df.columns = [col.lower() for col in final_df.columns]
+        # Flatten columns if they are still tuples
+        final_df.columns = [col[0] if isinstance(col, tuple) else col for col in final_df.columns]
+        final_df.columns = [str(col).lower() for col in final_df.columns]
         # Rename 'date' to 'timestamp' if it exists
         if 'date' in final_df.columns:
             final_df = final_df.rename(columns={'date': 'timestamp'})

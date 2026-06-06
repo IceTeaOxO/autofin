@@ -8,6 +8,14 @@ database:
 asset_pools:
   us_tech:
     tickers: ["AAPL", "MSFT", "NVDA", "GOOGL", "AMD", "TSLA"]
+  us_indices:
+    tickers: ["SPY", "QQQ", "DIA"]
+  us_financials:
+    tickers: ["JPM", "V", "MA", "GS"]
+  us_healthcare_consumer:
+    tickers: ["JNJ", "PFE", "PG", "KO", "PEP"]
+  us_energy_industrial:
+    tickers: ["XOM", "CVX", "CAT", "HON"]
   crypto:
     tickers: ["BTC-USD", "ETH-USD"]
 
@@ -31,3 +39,4 @@ factors:
   scoring:
     enabled: true
     method: "rank" # Options: "rank", "zscore"
+  rebalance_threshold: 0.05 # 5% change required to trade

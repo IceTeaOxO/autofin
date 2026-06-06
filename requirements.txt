@@ -1,6 +1,7 @@
-duckdb
 pandas
+numpy
 yfinance
-pyyaml
-statsmodels
+duckdb
+requests
 scipy
+pyyaml
