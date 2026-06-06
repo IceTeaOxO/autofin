@@ -1,0 +1,33 @@
+# Data Engine Configuration
+
+# Database settings
+database:
+  path: "data/autofin.db"
+
+# Asset pools to track
+asset_pools:
+  us_tech:
+    tickers: ["AAPL", "MSFT", "NVDA", "GOOGL", "AMD", "TSLA"]
+  crypto:
+    tickers: ["BTC-USD", "ETH-USD"]
+
+# Processing flags
+processing:
+  log_returns: true
+  lookback_days: 120 # Increased for 60-day momentum & FracDiff burn-in
+
+# Factor settings
+factors:
+  momentum:
+    windows: [20, 60]
+  mean_reversion:
+    window: 20
+  volatility:
+    window: 30
+  frac_diff:
+    dynamic_d: true # Use find_optimal_d
+    default_d: 0.4
+  neutralize: true
+  scoring:
+    enabled: true
+    method: "rank" # Options: "rank", "zscore"
