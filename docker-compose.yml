@@ -5,6 +5,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./config.yaml:/app/config.yaml
     environment:
       - EMAIL_API_URL=http://100.124.61.26/mail-sender/api/v1/email/send
       - EMAIL_RECIPIENT=uchuang9128@gmail.com

@@ -11,11 +11,15 @@ asset_pools:
   us_indices:
     tickers: ["SPY", "QQQ", "DIA"]
   us_financials:
-    tickers: ["JPM", "V", "MA", "GS"]
+    tickers: ["JPM", "V", "MA"]
   us_healthcare_consumer:
-    tickers: ["JNJ", "PFE", "PG", "KO", "PEP"]
+    tickers: ["JNJ", "PFE", "PG", "KO"]
   us_energy_industrial:
-    tickers: ["XOM", "CVX", "CAT", "HON"]
+    tickers: ["XOM", "CVX", "CAT", "LNG", "NXE"]
+  network:
+    tickers: ["AVGO", "MRVL"]  
+  japan:
+    tickers: ["EWJ"]  
   crypto:
     tickers: ["BTC-USD", "ETH-USD"]
 
